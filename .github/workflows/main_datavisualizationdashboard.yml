@@ -58,5 +58,5 @@ jobs:
         with:
           app-name: 'datavisualizationdashboard'
           slot-name: 'Production'
-          package: .
+          package: ./dist/dashboard
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_1979BAD0DA0742358BDA43F7E343F08F }}

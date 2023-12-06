@@ -1,0 +1,43 @@
+<div class="row">
+
+    <div class="col-1">
+        <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#" (click)="showThisComponent('bar')">Bar Chart</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#"  (click)="showThisComponent('map1')">Map 1</a>
+            </li>
+            <!-- <li class="nav-item">
+              <a class="nav-link" href="#"  (click)="showThisComponent('map2')">Map 2</a>
+            </li> -->
+          </ul>
+    </div>
+
+
+<div *ngIf="dataReady" class="col-11">
+
+    <div *ngIf="ShowComponent == 'bar'">
+    <app-bar ></app-bar>
+    </div>
+
+<div *ngIf="ShowComponent == 'map1'">
+<app-map1 [theData]="theData" [theGeoData]="theGeoData" [center]="mapCenter"
+[basemap]="basemapType"
+[zoom]="mapZoomLevel"
+(mapLoadedEvent)="mapLoadedEvent($event)"></app-map1>
+</div>
+
+<!-- <div *ngIf="ShowComponent == 'map2'">
+<app-map2 [theData]="theAllData" [theGeoData]="theGeoData" [center]="mapCenter"
+[basemap]="basemapType"
+[zoom]="mapZoomLevel"
+(mapLoadedEvent)="mapLoadedEvent($event)"></app-map2>
+</div> -->
+
+</div>
+
+
+
+
+</div>

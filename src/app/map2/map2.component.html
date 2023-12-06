@@ -1,0 +1,42 @@
+
+<div class="row">
+  <div class="col-8">
+    <div style="border-style: solid; border-width: 1px;" #mapViewNode></div>
+
+    <mat-slider thumblabel=""  step="10" [displayWith]="formatLabel"  width="800px"  tickInterval="auto" style="width:800px;" [min]="0" [max]="theData.data != undefined? theData.data[0].Count : 1000"   (change)="sliderChange()">
+      <input matSliderStartThumb [step]="10"   #ngStartThumb1 [(value)]="sliderSmall" />
+      <input matSliderEndThumb [step]="10"  #ngEndThumb1  [(value)]="sliderBig" /> 
+    </mat-slider>
+    <div>
+      <strong>Map 2:</strong><br/>
+      Range of C3 notification counts in a given hex area:  {{sliderSmall}} to {{sliderBig}}<br/>
+      Set the range to show the areas that fall within a given range of C3 notification counts<br/><br/>
+        <i># The data has been filtered based on directorate = "WATER AND SANITATION"</i><br/>
+        <i># The data has been filterdd based on department = "Distribution Services"</i><br/>
+        <i># This is to limit the data to infrastructure related service requests</i><br/>
+    </div>
+  </div>
+  <div class="col-4">
+    <table>
+      <tr *ngIf="directoratesReady">
+        <td>Directorate:</td>
+        <td>
+          <select >
+            <option *ngFor="let directorate of theDirectorateData.data">{{directorate[0]}}</option>
+          </select>
+        </td>
+       
+      </tr>
+      <tr *ngIf="departmentsReady">
+        <td>Department:</td>
+        <td>
+          <select >
+            <option value="">All</option>
+            <option *ngFor="let department of theDepartmentData.data">{{department[0]}}</option>
+          </select>
+        </td>
+       
+      </tr>
+    </table>
+  </div>
+</div>

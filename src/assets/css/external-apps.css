@@ -2150,7 +2150,7 @@ input#validatedCustomFile:focus {
 
 .nav-link {
   display: block;
-  text-decoration: none;
+  text-decoration: underline;
 }
 
 .nav-link:focus, .nav-link:hover {

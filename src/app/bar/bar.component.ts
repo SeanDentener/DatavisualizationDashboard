@@ -28,7 +28,7 @@ public dataReady: boolean = false;
   private height = 400 - (this.margin * 2);
 
   public sliderSmall:number = 0;
-  public sliderBig:number = 100;
+  public sliderBig:number = 1000;
 
 
   constructor(private dataManager: DataManager) {
@@ -52,7 +52,10 @@ public dataReady: boolean = false;
       this.sliderBig = this.chartData[0].Count;
       this.finalChartData = this.chartData;
 
-      this.width = this.finalChartData.length * 8;
+      this.width = this.finalChartData.length * 20;
+      if (this.width < 1000){
+        this.width = 1000;
+      }
       this.createSvg();
 
         this.drawBars(this.finalChartData);
@@ -76,7 +79,10 @@ public dataReady: boolean = false;
 public sliderChange() {
   if (this.chartData != undefined) {
   this.finalChartData = this.chartData.filter((d) => d.Count >= this.sliderSmall && d.Count <= this.sliderBig);
-  this.width = this.finalChartData.length  * 8;
+  this.width = this.finalChartData.length  * 20;
+  if (this.width < 1000){
+    this.width = 1000;
+  }
   this.drawBars(this.finalChartData);
   }
 }

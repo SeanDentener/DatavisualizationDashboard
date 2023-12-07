@@ -25,6 +25,7 @@ export class Map1Component  implements OnInit, OnDestroy {
 
   @Input() public theData: any
   @Input() public theGeoData: any;
+  public dataReady: boolean = false;
 
   public finalFilteredData:any;
 
@@ -187,6 +188,7 @@ public async drawCircles(filteredData:any) {
       geodesic: true,
       numberOfPoints: element.Count,
       radius: element.Count / 1,
+      Text: element.official_suburb,
       radiusUnit: "meters"
     });
 
@@ -219,6 +221,7 @@ public async drawCircles(filteredData:any) {
       // The map has been initialized
       console.log("mapView ready: ", this._view.ready);
       //this._loaded = this._view.ready;
+      this.dataReady = true;
       this.mapLoadedEvent.emit(true);
     });
   }

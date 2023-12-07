@@ -29,12 +29,6 @@ export class Map2Component implements OnInit, OnDestroy {
   @Input() public theGeoData: any;
 
   public finalFilteredData:any;
-  public theDirectorateData:any;
-  public theDepartmentData:any;
-  public dataReady: boolean = false;
-  public departmentsReady: boolean = false;
-  public directoratesReady: boolean = false;
-  
 
   // The <div> where we will place the map
   @ViewChild("mapViewNode", { static: true })
@@ -86,9 +80,9 @@ export class Map2Component implements OnInit, OnDestroy {
   public apiBaseUrl = "";
   public geoDataFeatures:any[] = [];
   public sliderSmall:number = 0;
-  public sliderBig:number = 100;
+  public sliderBig:number = 4000;
 
-  constructor(private configService: ConfigService,private dataManager: DataManager) {
+  constructor(private configService: ConfigService) {
 
     this.apiBaseUrl = configService.apiBaseUrl;
   }
@@ -120,8 +114,11 @@ export class Map2Component implements OnInit, OnDestroy {
         // layers: [suburbLayer ]
       };
 
+
+
       const map: esri.Map = new EsriMap(mapProperties);
       
+
       // Initialize the MapView
       const mapViewProperties: esri.MapViewProperties = {
         container: this.mapViewEl.nativeElement,
@@ -161,14 +158,14 @@ export class Map2Component implements OnInit, OnDestroy {
     return value + '';
   }
 
-  public sliderChange() {
+public sliderChange() {
   if (this.theData.data != undefined) {
   this.finalFilteredData = this.theData.data.filter((d: { Count: number; }) => d.Count >= this.sliderSmall && d.Count <= this.sliderBig);
   
   
   this.drawCircles(this.finalFilteredData);
   }
-  }
+}
 
 public async drawCircles(filteredData:any) {
   
@@ -183,32 +180,16 @@ public async drawCircles(filteredData:any) {
   filteredData.forEach((element: any) => {
     let theFeature = this.getGeometryByhex(element.h3_level8_index)  
     
-    var labelingInfo = [
-      {
-          labelExpression: "Test",
-          labelPlacement: "center-center",
-          symbol: {
-              type: "text",
-              color: "white",
-              font: {
-                  family: "Arial",
-                  size: 12,
-                  weight: "bold",
-                  decoration: "none"
-              }
-          }
-      }
-  ];
+    
 
-
+  if (theFeature[0].centroid_lon != null) {
     const circleGeometry = new theCircle({
+
       center: [ theFeature[0].centroid_lon, theFeature[0].centroid_lat ],
       geodesic: true,
       numberOfPoints: element.Count,
       radius: element.Count / 1,
-      radiusUnit: "meters",
-      
-      labelingInfo: labelingInfo
+      radiusUnit: "meters"
     });
 
    
@@ -219,57 +200,22 @@ public async drawCircles(filteredData:any) {
     symbol: {
       type: "simple-fill",
       color: [255, 0, 0, 0.2],
-
       outline: {
         width: 1,
         color: {r: 255, g: 0, b: 0, a: 1}
       }    }
     
-  }));
+      }));
+    }
   });
 
 
   
 }
 
-  public getDirectorateData() {
 
-    this.dataManager.getDirectoratedata().subscribe(response => {
-      console.log(response);
-      this.theDirectorateData =  response;
-      console.log(this.theDirectorateData.data);
-      this.directoratesReady = true;
-      this.getDepartmentData(this.theDirectorateData.data[0][0])
-    
-
-     
-  },
-  error => {
-    console.log(error);
-  });
-  }
-
-  public getDepartmentData(directorate:string) {
-    
-    this.dataManager.getDepartmentdata(directorate).subscribe(response => {
-      this.theDepartmentData =  response;
-      console.log(this.theDepartmentData);
-      this.departmentsReady = true;
-      this.dataReady = true;
-    },
-    error => {
-      console.log(error);
-    });
-
-  }
 
   ngOnInit() {
-
-    this.getDirectorateData();
-    
-    
-
-
     // Initialize MapView and return an instance of MapView
     this.initializeMap().then(mapView => {
       // The map has been initialized
@@ -282,7 +228,7 @@ public async drawCircles(filteredData:any) {
   ngOnDestroy() {
     if (this._view) {
       // destroy the map view
-       this._view.destroy();
+      this._view.destroy();
     }
   }
 }

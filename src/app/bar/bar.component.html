@@ -1,17 +1,21 @@
 
+<h1 *ngIf="dataReady">Water and Sanitation - Distribution Services C3 Notification counts based on Suburb data</h1>
 
 <figure id="bar"  style="width: 1000px; overflow-x: scroll;"></figure>
 <br/>
+<div *ngIf="dataReady">
+<div style="width:800px;"><span style="align-content: center;font-weight: bold;">{{sliderSmall}} to {{sliderBig}}</span></div>
 <mat-slider thumblabel=""  step="10" [displayWith]="formatLabel"  width="1000px"  tickInterval="auto" style="width:1000px; " [min]="0" [max]="chartData != undefined? chartData[0].Count : 1000"   (change)="sliderChange()">
     <input matSliderStartThumb [step]="10"   #ngStartThumb1 [(value)]="sliderSmall" />
     <input matSliderEndThumb [step]="10"  #ngEndThumb1  [(value)]="sliderBig" /> 
 </mat-slider>
 <div>
-    <strong>Bar Chart:</strong><br/>
+    <strong>Bar chart dtail:</strong><br/>
     Range of C3 notification counts in a given suburb:  {{sliderSmall}} to {{sliderBig}}<br/>
   Set the range to show the areas that fall within a given range of C3 notification counts<br/><br/>
     <i># The data has been filtered based on directorate = "WATER AND SANITATION"</i><br/>
     <i># The data has been filterdd based on department = "Distribution Services"</i><br/>
     <i># This is to limit the data to infrastructure related service requests</i><br/>
+</div>
 </div>
 

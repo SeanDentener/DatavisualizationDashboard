@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { DataManager } from '../providers/datamanager';
 import * as d3 from 'd3';
 
@@ -12,11 +12,14 @@ import * as d3 from 'd3';
 
 export class BarComponent {
 
-  public data: any;
+  @Input() public theData: any
+  public data: any
   public chartData: ChartDataType[] | undefined;
   public finalChartData: ChartDataType[] | undefined;
   
-  public dataReady: boolean = false;
+  @Output() barLoadedEvent = new EventEmitter<boolean>();
+public dataReady: boolean = false;
+
 
   private svg: any;
   private margin = 50;
@@ -35,10 +38,7 @@ export class BarComponent {
 
     this.dataManager.getsuburbData().subscribe(response => {
       this.data =  response;
-      this.dataReady = true;
-     
-      // console.log(this.data['data']);
-    
+   
         this.chartData = this.data['data'] as ChartDataType[];
 
         this.chartData.sort((a, b) => {
@@ -49,19 +49,16 @@ export class BarComponent {
           return 0;
       });
 
-      console.log(this.chartData);
-
-
-
       this.sliderBig = this.chartData[0].Count;
       this.finalChartData = this.chartData;
 
-      this.width = this.finalChartData.length * 20;
+      this.width = this.finalChartData.length * 8;
       this.createSvg();
 
         this.drawBars(this.finalChartData);
 
-   
+        this.dataReady = true;
+        this.barLoadedEvent.emit(true);
 
     });
 
@@ -79,7 +76,7 @@ export class BarComponent {
 public sliderChange() {
   if (this.chartData != undefined) {
   this.finalChartData = this.chartData.filter((d) => d.Count >= this.sliderSmall && d.Count <= this.sliderBig);
-  this.width = this.finalChartData.length * 20;
+  this.width = this.finalChartData.length  * 8;
   this.drawBars(this.finalChartData);
   }
 }

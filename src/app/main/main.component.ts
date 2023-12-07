@@ -8,11 +8,13 @@ import { DataManager } from '../providers/datamanager';
 })
 export class MainComponent {
 
-  public theAllData: any;
+
   public theData: any;
   public theGeoData: any;
+  public theSuburbData: any;
 
   public dataReady: boolean = false;
+
 
   mapCenter = [ 18.423300, -33.918861];
   basemapType = 'streets';
@@ -20,34 +22,40 @@ export class MainComponent {
   
   public ShowComponent:string = "bar";
 
-  // See app.component.html
+  
+  barLoadedEvent(status: boolean) {
+    console.log('The bar loaded: ' + status);
+    this.dataReady = true;
+  }
+
   mapLoadedEvent(status: boolean) {
     console.log('The map loaded: ' + status);
+    this.dataReady = true;
   }
 
   constructor(private dataManager: DataManager) {
   }
 
   ngOnInit(): void {
+
+    // this.dataManager.getsuburbData().subscribe(response => {
+    //   this.theSuburbData =  response;
+    //   console.log('main');
+    //   console.log(this.theSuburbData);
+
     this.dataManager.getHexData().subscribe(response => {
       this.theData =  response;
-      console.log(this.theData);
+      // console.log(this.theData);
+
 
       this.dataManager.getgeoData().subscribe(response => {
         this.theGeoData =  response;
-        console.log(this.theGeoData);
-
-        // this.dataManager.getAlldata().subscribe(response => {
-        //   this.theAllData =  response;
-        //   console.log(this.theAllData);
+        // console.log(this.theGeoData);
 
 
-
-        this.dataReady = true;
-
+    });
+    });
     //});
-    });
-    });
   }
 
 

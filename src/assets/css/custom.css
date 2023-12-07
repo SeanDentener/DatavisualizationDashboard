@@ -1108,3 +1108,7 @@ table.dataTable thead {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+.progress-bar {
+  color: #D5EEF6;
+  background-color: #0098C5; }

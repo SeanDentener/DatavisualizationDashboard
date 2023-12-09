@@ -20,28 +20,26 @@ export class BarComponent {
   @Output() barLoadedEvent = new EventEmitter<boolean>();
 public dataReady: boolean = false;
 
-
+  public searchSuburb:string = '';
   private svg: any;
   private margin = 50;
   private marginbottom = 125;
-  public width = 1000 - (this.margin * 2);
+  public width = 800 - (this.margin * 2);
   private height = 400 - (this.margin * 2);
 
   public sliderSmall:number = 0;
-  public sliderBig:number = 1000;
+  public sliderBig:number = 4000;
 
 
   constructor(private dataManager: DataManager) {
   }
 
   ngOnInit(): void {
-
-    this.dataManager.getsuburbData().subscribe(response => {
-      this.data =  response;
+      this.data = this.theData;
    
-        this.chartData = this.data['data'] as ChartDataType[];
+      this.chartData = this.data['data'] as ChartDataType[];
 
-        this.chartData.sort((a, b) => {
+      this.chartData.sort((a, b) => {
           if (a.Count > b.Count)
               return -1;
           if (a.Count < b.Count)
@@ -52,19 +50,16 @@ public dataReady: boolean = false;
       this.sliderBig = this.chartData[0].Count;
       this.finalChartData = this.chartData;
 
-      this.width = this.finalChartData.length * 20;
+      this.width = this.finalChartData.length * 15;
       if (this.width < 1000){
         this.width = 1000;
       }
       this.createSvg();
 
-        this.drawBars(this.finalChartData);
+        this.drawBars(this.finalChartData, this.searchSuburb);
 
         this.dataReady = true;
         this.barLoadedEvent.emit(true);
-
-    });
-
 
   }
 
@@ -79,11 +74,11 @@ public dataReady: boolean = false;
 public sliderChange() {
   if (this.chartData != undefined) {
   this.finalChartData = this.chartData.filter((d) => d.Count >= this.sliderSmall && d.Count <= this.sliderBig);
-  this.width = this.finalChartData.length  * 20;
+  this.width = this.finalChartData.length  * 15;
   if (this.width < 1000){
     this.width = 1000;
   }
-  this.drawBars(this.finalChartData);
+  this.drawBars(this.finalChartData, this.searchSuburb);
   }
 }
 
@@ -95,11 +90,11 @@ public sliderChange() {
     .attr("width", this.width + (this.margin * 2))
     .attr("height", this.height + (this.marginbottom * 2))
     .append("g")
-    .attr("transform", "translate(" + this.margin + "," + this.marginbottom + ")");
+    .attr("transform", "translate(" + this.margin + "," + this.marginbottom  + ")");
 }
 
 
-private drawBars(data: any[]): void {
+private drawBars(data: any[], searchSuburb:string): void {
   // Create the X-axis band scale
   d3.selectAll("g > *").remove()
 
@@ -126,9 +121,11 @@ private drawBars(data: any[]): void {
   this.svg.append("g")
   .call(d3.axisLeft(y));
 
+  
 
   this.svg.selectAll("bars")
   .data(data)
+  // .data(data.filter(function(d){return d.official_suburb = searchSuburb }))
   .enter()
   .append("rect")
   .attr("x", (d: any) => x(d.official_suburb))
@@ -138,7 +135,35 @@ private drawBars(data: any[]): void {
   .attr("fill", "#d04a35");
 }
 
+public searchForParticularSuburb() {
 
+    this.searchSuburb = this.searchSuburb.toUpperCase();
+    
+    this.chartData = this.data['data'] as ChartDataType[];
+    this.finalChartData = this.chartData;
+    this.finalChartData = this.finalChartData?.filter(d => d.official_suburb.indexOf(this.searchSuburb) > -1);
+    this.sliderBig = this.finalChartData[0].Count;
+    this.width = this.finalChartData.length  * 15;
+    if (this.width < 1000){
+      this.width = 1000;
+    }
+
+  this.drawBars(this.finalChartData, this.searchSuburb);
+  
+
+}
+
+public ClearSearch() {
+  this.searchSuburb = '';
+  this.chartData = this.data['data'] as ChartDataType[];
+  this.finalChartData = this.chartData;
+  this.sliderBig = this.chartData[0].Count;
+  this.width = this.finalChartData.length  * 15;
+    if (this.width < 1000){
+      this.width = 1000;
+    }
+  this.drawBars(this.finalChartData, "");
+}
 
 }
 

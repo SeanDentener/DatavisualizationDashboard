@@ -101,10 +101,10 @@ export class Map1Component  implements OnInit, OnDestroy {
       let color = new theColor({r: 255, g: 0, b: 0, a: 1});
       this.geoDataFeatures = this.theGeoData.features;
 
-      let geojsonLayer = new GeoJSONLayer({
-        url: this.apiBaseUrl + '/getgeojsondata',
-        copyright: "COCT"
-      });
+      // let geojsonLayer = new GeoJSONLayer({
+      //   url: this.apiBaseUrl + '/getgeojsondata',
+      //   copyright: "COCT"
+      // });
       
       // Configure the Map
       const mapProperties: esri.MapProperties = {
@@ -113,11 +113,8 @@ export class Map1Component  implements OnInit, OnDestroy {
         // layers: [suburbLayer ]
       };
 
-
-
       const map: esri.Map = new EsriMap(mapProperties);
       
-
       // Initialize the MapView
       const mapViewProperties: esri.MapViewProperties = {
         container: this.mapViewEl.nativeElement,
@@ -129,14 +126,13 @@ export class Map1Component  implements OnInit, OnDestroy {
       this._view = new EsriMapView(mapViewProperties);
       await this._view.when();
 
+      console.log(this.theData.data[0]);
       this.sliderBig = this.theData.data[0].Count;
       this.finalFilteredData = this.theData.data;
       console.log(this.theData.data);
 
       this.drawCircles(this.finalFilteredData);
       
-
-
       return this._view;
     } catch (error) {
       console.log("EsriLoader: ", error);
@@ -186,9 +182,8 @@ public async drawCircles(filteredData:any) {
 
       center: [ theFeature[0].centroid_lon, theFeature[0].centroid_lat ],
       geodesic: true,
-      numberOfPoints: element.Count,
-      radius: element.Count / 1,
-      Text: element.official_suburb,
+      // numberOfPoints: element.Count,
+      radius: element.Count,
       radiusUnit: "meters"
     });
 
@@ -210,9 +205,7 @@ public async drawCircles(filteredData:any) {
   });
 
 
-  
 }
-
 
 
   ngOnInit() {

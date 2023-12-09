@@ -1,18 +1,18 @@
-
-<h1 *ngIf="dataReady">Water and Sanitation - Distribution Services C3 Notification counts based on Suburb data</h1>
+<br/>
+<h1 *ngIf="dataReady">Water and Sanitation - Distribution Services - Sevice request counts per Suburb</h1>
 
 <figure id="bar"  style="min-width: 1000px; width:1000px; overflow-x: scroll;"></figure>
 <br/>
 <div *ngIf="dataReady">
-<div style="width:800px;"><span style="align-content: center;font-weight: bold;">Count: {{sliderSmall}} to {{sliderBig}}</span><span style="padding-left: 40px; align-content: center;font-weight: bold;">Number of Suburbs: {{finalChartData?.length}}</span></div>
-<mat-slider thumblabel=""  step="10" [displayWith]="formatLabel"  width="1000px"  tickInterval="auto" style="width:1000px; " [min]="0" [max]="chartData != undefined? chartData[0].Count : 1000"   (change)="sliderChange()">
-    <input matSliderStartThumb [step]="10"   #ngStartThumb1 [(value)]="sliderSmall" />
-    <input matSliderEndThumb [step]="10"  #ngEndThumb1  [(value)]="sliderBig" /> 
+<div style="width:1000px;"><span style="align-content: center;">Service request counts that fall into the range of {{sliderSmall}} to {{sliderBig}}</span><span style=" float:right; align-content: center;">Number of Suburbs: {{finalChartData?.length}}</span></div>
+<mat-slider thumblabel=""  step="1" [displayWith]="formatLabel"  width="1000px"  tickInterval="auto" style="width:1000px; " [min]="0" [max]="chartData != undefined? chartData[0].Count : 1000"   (change)="sliderChange()">
+    <input matSliderStartThumb [step]="1"   #ngStartThumb1 [(value)]="sliderSmall" />
+    <input matSliderEndThumb [step]="1"  #ngEndThumb1  [(value)]="sliderBig" /> 
 </mat-slider>
+<div style="padding-top: 8px; padding-bottom: 8px;" class="form-group mx-sm-3 mb-2"> <input style="width:300px;" placeholder="Search for a suburb"  class="form-control" [(ngModel)]="searchSuburb" > <input class="btn btn-outline-primary btn-sm" type="button" (click)="searchForParticularSuburb()" value="Search" > <input class="btn btn-outline-primary btn-sm" type="button" (click)="ClearSearch()" value="Clear Search"></div>
 <div>
     <strong>Bar chart dtail:</strong><br/>
-    Range of C3 notification counts in a given suburb:  {{sliderSmall}} to {{sliderBig}}<br/>
-    Set the range to show the areas that fall within a given range of C3 notification counts<br/><br/>
+    Set the range to show the areas that fall within a given range of service request counts<br/><br/>
     <i># The data has been filtered based on directorate = "WATER AND SANITATION"</i><br/>
     <i># The data has been filterdd based on department = "Distribution Services"</i><br/>
     <i># This is to limit the data to infrastructure related service requests</i><br/>

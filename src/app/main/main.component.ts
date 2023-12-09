@@ -20,7 +20,7 @@ export class MainComponent {
   basemapType = 'streets';
   mapZoomLevel = 10;
   
-  public ShowComponent:string = "bar";
+  public ShowComponent:string = "";
 
   
   barLoadedEvent(status: boolean) {
@@ -38,24 +38,23 @@ export class MainComponent {
 
   ngOnInit(): void {
 
-    // this.dataManager.getsuburbData().subscribe(response => {
-    //   this.theSuburbData =  response;
-    //   console.log('main');
-    //   console.log(this.theSuburbData);
-
-    this.dataManager.getHexData().subscribe(response => {
+    this.dataManager.gethexData().subscribe(response => {
       this.theData =  response;
-      // console.log(this.theData);
+      console.log(this.theData);
 
+    this.dataManager.getsuburbData().subscribe(response => {
+      this.theSuburbData =  response;
+      console.log(this.theSuburbData);
+
+      this. ShowComponent = "bar";
 
       this.dataManager.getgeoData().subscribe(response => {
         this.theGeoData =  response;
-        // console.log(this.theGeoData);
-
+        console.log(this.theGeoData);
 
     });
     });
-    //});
+  });
   }
 
 

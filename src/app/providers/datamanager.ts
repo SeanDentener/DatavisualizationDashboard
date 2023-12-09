@@ -14,36 +14,21 @@ import { ConfigService } from "./config.service";
       }
 
 
-      public  getSRData() {
-        return this.http.get(this.apiBaseUrl + '/getsrdata');
-      }
-
-
       public  getgeoData() {
         return this.http.get(this.apiBaseUrl + '/getgeojsondata');
+      }
+
+      public  gethexData() {
+        return this.http.get(this.apiBaseUrl + '/getHexcountdata');
       }
 
 
       public  getsuburbData() {
         return this.http.get(this.apiBaseUrl + '/getsuburbcountdata');
       }
-      public  getHexData() {
-        return this.http.get(this.apiBaseUrl + '/getHexcountdata');
-      }
 
 
-      // public getAlldata() {
-      //   return this.http.get(this.apiBaseUrl + '/getAlldata');
 
-      // }
-
-      public getDirectoratedata() {
-        return this.http.get(this.apiBaseUrl + '/getDirectoratedata');
-      }
-
-      public getDepartmentdata(directorate:string) {
-        return this.http.get(this.apiBaseUrl + '/getDepartmentdata?directorate=' + directorate);
-      }
 
   }
   

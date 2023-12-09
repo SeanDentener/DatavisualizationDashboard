@@ -30,6 +30,7 @@ public dataReady: boolean = false;
   public sliderSmall:number = 0;
   public sliderBig:number = 4000;
 
+  
 
   constructor(private dataManager: DataManager) {
   }
@@ -48,6 +49,7 @@ public dataReady: boolean = false;
       });
 
       this.sliderBig = this.chartData[0].Count;
+    
       this.finalChartData = this.chartData;
 
       this.width = this.finalChartData.length * 15;
@@ -56,7 +58,7 @@ public dataReady: boolean = false;
       }
       this.createSvg();
 
-        this.drawBars(this.finalChartData, this.searchSuburb);
+        this.drawBars(this.finalChartData);
 
         this.dataReady = true;
         this.barLoadedEvent.emit(true);
@@ -78,7 +80,7 @@ public sliderChange() {
   if (this.width < 1000){
     this.width = 1000;
   }
-  this.drawBars(this.finalChartData, this.searchSuburb);
+  this.drawBars(this.finalChartData);
   }
 }
 
@@ -94,7 +96,11 @@ public sliderChange() {
 }
 
 
-private drawBars(data: any[], searchSuburb:string): void {
+public drawBars(data: any[]): void {
+
+
+  let largestCount = this.finalChartData != null? this.finalChartData[0].Count  : 1000
+
   // Create the X-axis band scale
   d3.selectAll("g > *").remove()
 
@@ -132,7 +138,11 @@ private drawBars(data: any[], searchSuburb:string): void {
   .attr("y", (d: any) => y(d.Count))
   .attr("width", x.bandwidth())
   .attr("height", (d: any) => this.height - y(d.Count))
-  .attr("fill", "#d04a35");
+  .attr("fill", "#d04a35")
+  .style("fill-opacity", function(d: any) {
+    console.log(d.Count);
+    return d.Count /  largestCount;
+  });
 }
 
 public searchForParticularSuburb() {
@@ -148,7 +158,7 @@ public searchForParticularSuburb() {
       this.width = 1000;
     }
 
-  this.drawBars(this.finalChartData, this.searchSuburb);
+  this.drawBars(this.finalChartData);
   
 
 }
@@ -162,7 +172,7 @@ public ClearSearch() {
     if (this.width < 1000){
       this.width = 1000;
     }
-  this.drawBars(this.finalChartData, "");
+  this.drawBars(this.finalChartData);
 }
 
 }

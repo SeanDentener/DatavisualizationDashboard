@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { DataManager } from '../providers/datamanager';
+import { Globals } from '../providers/globals.service';
 
 @Component({
   selector: 'app-main',
@@ -33,7 +34,7 @@ export class MainComponent {
     this.dataReady = true;
   }
 
-  constructor(private dataManager: DataManager) {
+  constructor(private dataManager: DataManager, public globals: Globals) {
   }
 
   ngOnInit(): void {
@@ -46,7 +47,7 @@ export class MainComponent {
       this.theSuburbData =  response;
       console.log(this.theSuburbData);
 
-      this. ShowComponent = "bar";
+      this. globals.currentView = "bar";
 
       this.dataManager.getgeoData().subscribe(response => {
         this.theGeoData =  response;
@@ -58,8 +59,8 @@ export class MainComponent {
   }
 
 
-  public   showThisComponent(theComponent:string) {
-    this.ShowComponent = theComponent;
-  }
+  // public   showThisComponent(theComponent:string) {
+  //   this.ShowComponent = theComponent;
+  // }
   
 }

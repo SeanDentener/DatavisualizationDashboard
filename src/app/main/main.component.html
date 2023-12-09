@@ -1,49 +1,27 @@
+<div *ngIf="!dataReady" style="padding-top: 40px; padding-bottom: 20px;">
+  <div class="d-flex justify-content-center">
+    <div class="spinner-border" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+</div>
+
 <div class="row" style="margin-bottom: 20px;">
 
-    <div class="col-1" style="background-color: #dee2e6; padding-top: 10px;">
-        <ul class="nav flex-column">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#" (click)="showThisComponent('bar')">Suburb Chart</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#"  (click)="showThisComponent('map1')">Suburb Map</a>
-            </li>
-            <!-- <li class="nav-item">
-              <a class="nav-link" href="#"  (click)="showThisComponent('map2')">Suburb Map</a>
-            </li> -->
-          </ul>
-          <br/>
+<div  class="col-10" style="margin-left: auto;">
 
-          <div *ngIf="!dataReady" style="padding-bottom: 20px;">
-            <div class="d-flex justify-content-center">
-              <div class="spinner-border" role="status">
-                <span class="sr-only">Loading...</span>
-              </div>
-            </div>
-          </div>
-    </div> 
-
-   
-
-<div  class="col-11">
-
-    <div *ngIf="ShowComponent == 'bar'">
+  <div *ngIf="globals.currentView == 'bar'">
     <app-bar [theData]="theSuburbData" (barLoadedEvent)="barLoadedEvent($event)"></app-bar>
     </div>
 
-<div *ngIf="ShowComponent == 'map1'">
+<div *ngIf="globals.currentView == 'map1'">
 <app-map1 [theData]="theData" [theGeoData]="theGeoData" [center]="mapCenter"
 [basemap]="basemapType"
 [zoom]="mapZoomLevel"
 (mapLoadedEvent)="mapLoadedEvent($event)"></app-map1>
 </div>
 
-<!-- <div *ngIf="ShowComponent == 'map2'">
-<app-map2 [theData]="theSuburbData" [theGeoData]="theGeoData" [center]="mapCenter"
-[basemap]="basemapType"
-[zoom]="mapZoomLevel"
-(mapLoadedEvent)="mapLoadedEvent($event)"></app-map2>
-</div> -->
+
 
 <br/>
 <br/>

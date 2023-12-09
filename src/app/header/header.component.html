@@ -3,6 +3,15 @@
     <nav class="navbar navbar-expand-lg navbar-light shadow-sm " style="background-color: #dee2e6; ">
       <!-- Navbar content -->
       <a class="navbar-brand" href="/"><img src="assets/images/cct-logo.svg" alt="City of Cape Town Logo"></a>
+      <h2>Water and Sanitation - Distribution Services</h2>
+      <ul class="navbar-nav ml-auto my-2 my-lg-0 navbar-nav-scroll">
+        <li class="nav-item" [ngClass]="this.globals.currentView == 'bar' ? 'active' : '' ">
+          <a class="nav-link active" aria-current="page" href="#" (click)="showThisComponent('bar')">Chart</a>
+        </li>
+        <li class="nav-item" [ngClass]="this.globals.currentView == 'map1' ? 'active' : '' ">
+          <a class="nav-link" href="#"  (click)="showThisComponent('map1')">Map</a>
+        </li>
+        </ul>
       <!-- End Navbar content -->
     </nav>
     <!-- End Navbar -->

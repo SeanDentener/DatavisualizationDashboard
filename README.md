@@ -1,6 +1,4 @@
 
-<img src="img/city_emblem.png" alt="City Logo"/>
-
 # City of Cape Town - Data Science Unit Code Challenge - Visualisation Engineer and Front End Developers
 
 This is the repository for the front end aspects of the ds_code_challenge

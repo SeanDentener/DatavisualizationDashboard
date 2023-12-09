@@ -1,4 +1,16 @@
-# Dashboard
+
+<img src="img/city_emblem.png" alt="City Logo"/>
+
+# City of Cape Town - Data Science Unit Code Challenge - Visualisation Engineer and Front End Developers
+
+This is the repository for the front end aspects of the ds_code_challenge
+See this repository for more details: https://github.com/SeanDentener/ds_code_challenge
+
+It is running on Azure here: https://datavisualizationdashboard.azurewebsites.net/
+
+
+
+# Dashboard technical details
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.8.
 

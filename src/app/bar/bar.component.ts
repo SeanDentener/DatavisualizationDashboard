@@ -140,7 +140,6 @@ public drawBars(data: any[]): void {
   .attr("height", (d: any) => this.height - y(d.Count))
   .attr("fill", "#d04a35")
   .style("fill-opacity", function(d: any) {
-    console.log(d.Count);
     return d.Count /  largestCount;
   });
 }

@@ -126,10 +126,10 @@ export class Map1Component  implements OnInit, OnDestroy {
       this._view = new EsriMapView(mapViewProperties);
       await this._view.when();
 
-      console.log(this.theData.data[0]);
+
       this.sliderBig = this.theData.data[0].Count;
       this.finalFilteredData = this.theData.data;
-      console.log(this.theData.data);
+
 
       this.drawCircles(this.finalFilteredData);
       

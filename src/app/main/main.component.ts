@@ -41,17 +41,14 @@ export class MainComponent {
 
     this.dataManager.gethexData().subscribe(response => {
       this.theData =  response;
-      console.log(this.theData);
 
     this.dataManager.getsuburbData().subscribe(response => {
       this.theSuburbData =  response;
-      console.log(this.theSuburbData);
 
       this. globals.currentView = "bar";
 
       this.dataManager.getgeoData().subscribe(response => {
         this.theGeoData =  response;
-        console.log(this.theGeoData);
 
     });
     });

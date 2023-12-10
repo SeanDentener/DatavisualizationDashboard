@@ -1,8 +1,8 @@
 <br/>
 <h2 *ngIf="dataReady">Sevice request counts per Suburb</h2>
 <div style="z-index: 1; position: relative;" class="form-group mx-sm-3 mb-2"> 
-    <input style="width:300px; display: inline; margin-right:10px" placeholder="Search for a suburb"  class="form-control-sm" [(ngModel)]="searchSuburb" [enterKeyHint]="searchForParticularSuburb()" > 
-    <!--<input class="btn btn-outline-primary btn-sm" style="margin-right: 4px;" type="button" (click)="searchForParticularSuburb()" value="Search" > -->
+    <input style="width:300px; display: inline; margin-right:10px" placeholder="Search for a suburb"  class="form-control-sm" [(ngModel)]="searchSuburb"  (keydown)="searchForParticularSuburb($event)" > 
+    <input class="btn btn-outline-primary btn-sm" style="margin-right: 4px;" type="button" (click)="searchForParticularSuburbButtonClick()" value="Search" >
      <input class="btn btn-outline-primary btn-sm" type="button" (click)="ClearSearch()" value="Clear Search"></div>
 <figure id="bar"  style="min-width: 1000px; width:1000px; overflow-x: scroll; margin-top: -112px;"></figure>
 <figcaption class="figure-caption">Sevice request counts per Suburb.</figcaption>

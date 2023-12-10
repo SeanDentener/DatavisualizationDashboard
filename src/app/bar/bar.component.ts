@@ -74,6 +74,8 @@ public dataReady: boolean = false;
   }
 
 public sliderChange() {
+  this.searchSuburb = '';
+
   if (this.chartData != undefined) {
   this.finalChartData = this.chartData.filter((d) => d.Count >= this.sliderSmall && d.Count <= this.sliderBig);
   this.width = this.finalChartData.length  * 15;
@@ -144,7 +146,26 @@ public drawBars(data: any[]): void {
   });
 }
 
-public searchForParticularSuburb() {
+public searchForParticularSuburb(event:any) {
+  console.log(event);
+  if (event.keyCode === 13) {
+    this.searchSuburb = this.searchSuburb.toUpperCase();
+    
+    this.chartData = this.data['data'] as ChartDataType[];
+    this.finalChartData = this.chartData;
+    this.finalChartData = this.finalChartData?.filter(d => d.official_suburb.indexOf(this.searchSuburb) > -1);
+    this.sliderBig = this.finalChartData[0].Count;
+    this.width = this.finalChartData.length  * 15;
+    if (this.width < 1000){
+      this.width = 1000;
+    }
+
+  this.drawBars(this.finalChartData);
+  }
+
+}
+
+public searchForParticularSuburbButtonClick() {
 
     this.searchSuburb = this.searchSuburb.toUpperCase();
     
@@ -158,9 +179,10 @@ public searchForParticularSuburb() {
     }
 
   this.drawBars(this.finalChartData);
-  
+
 
 }
+
 
 public ClearSearch() {
   this.searchSuburb = '';

@@ -3,7 +3,9 @@
     <nav class="navbar navbar-expand-lg navbar-light shadow-sm " style="background-color: #dee2e6; ">
       <!-- Navbar content -->
       <a class="navbar-brand" href="/"><img src="assets/images/cct-logo.svg" alt="City of Cape Town Logo"></a>
-      <h2>Water and Sanitation - Distribution Services</h2>
+      <div style="margin-left: 10px;"><h2 style="margin-bottom: -5px;">Water and Sanitation</h2>
+      <span>Distribution Services</span>
+    </div>
       <ul class="navbar-nav ml-auto my-2 my-lg-0 navbar-nav-scroll">
         <li class="nav-item" [ngClass]="this.globals.currentView == 'bar' ? 'active' : '' ">
           <a class="nav-link active" aria-current="page" href="#" (click)="showThisComponent('bar')">Chart</a>
